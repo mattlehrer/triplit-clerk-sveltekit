@@ -37,7 +37,7 @@ export const roles: Roles = {
 		match: {
 			sub: '$userId',
 			org_id: undefined, // this is ignored by Triplit but here for clarity of what's coming from Clerk
-			org_role: 'personal',
+			org_role: 'personal', // add { "org_role": "{{ org.role || personal }}" } to your Clerk JWT claims for this to match
 		},
 	},
 };

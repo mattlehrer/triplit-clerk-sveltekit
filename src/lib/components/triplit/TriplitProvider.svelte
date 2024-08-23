@@ -31,6 +31,8 @@
 			if (!lastActiveTokenExp || lastActiveTokenExp * 1000 < new Date().getTime()) {
 				console.log('Token expired, getting new token');
 				currentTriplitToken = await session?.getToken();
+				// or use a custom Clerk JWT token template here
+				// currentTriplitToken = await session?.getToken({ template: 'triplit' });
 			} else {
 				currentTriplitToken = currentSessionToken;
 			}
