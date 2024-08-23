@@ -4,6 +4,7 @@
 	import { ClerkProvider } from 'svelte-clerk';
 	import { PUBLIC_CLERK_PUBLISHABLE_KEY } from '$env/static/public';
 	import '../index.css';
+	import TriplitProvider from '$lib/components/triplit/TriplitProvider.svelte';
 
 	const {
 		children,
@@ -15,5 +16,7 @@
 </script>
 
 <ClerkProvider {...data} publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
-	{@render children()}
+	<TriplitProvider token={data.token}>
+		{@render children()}
+	</TriplitProvider>
 </ClerkProvider>

@@ -1,6 +1,6 @@
 import { TriplitClient } from '@triplit/client';
 import { schema } from '../../triplit/schema';
-import { PUBLIC_TRIPLIT_SERVER_URL, PUBLIC_TRIPLIT_TOKEN } from '$env/static/public';
+import { PUBLIC_TRIPLIT_SERVER_URL } from '$env/static/public';
 import { browser } from '$app/environment';
 
 // The TriplitClient has 4 main options
@@ -15,10 +15,15 @@ import { browser } from '$app/environment';
 // Without the serverUrl or token, the client will operate in
 // offline mode
 
-export const triplit = new TriplitClient({
+export const onlineDb = new TriplitClient({
 	storage: 'memory',
 	schema,
 	serverUrl: PUBLIC_TRIPLIT_SERVER_URL,
-	token: PUBLIC_TRIPLIT_TOKEN,
+	autoConnect: browser,
+});
+
+export const offlineDb = new TriplitClient({
+	storage: 'memory',
+	schema,
 	autoConnect: browser,
 });
