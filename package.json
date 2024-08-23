@@ -8,7 +8,10 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "triplit": "triplit dev",
+    "triplit:schema": "triplit schema push",
+    "triplit:clear": "triplit clear"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^3.2.4",
@@ -16,6 +19,7 @@
     "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
     "@triplit/cli": "^0.5.7",
     "@types/eslint": "^9.6.0",
+    "better-sqlite3": "^11.2.1",
     "eslint": "^9.9.0",
     "eslint-plugin-svelte": "^2.43.0",
     "globals": "^15.9.0",
