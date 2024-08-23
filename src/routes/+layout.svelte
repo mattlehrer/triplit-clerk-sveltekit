@@ -1,4 +1,3 @@
-
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
@@ -8,13 +7,12 @@
 
 	const {
 		children,
-		data
+		data,
 	}: {
 		children: Snippet;
 		data: LayoutData;
 	} = $props();
 </script>
-
 
 <ClerkProvider {...data} publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY}>
 	{@render children()}
