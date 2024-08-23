@@ -1,5 +1,5 @@
 {
-  "name": "svelte-template",
+  "name": "triplit-clerk-svelte",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -11,24 +11,25 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^3.0.0",
-    "@sveltejs/kit": "^2.0.0",
-    "@sveltejs/vite-plugin-svelte": "^3.0.0",
-    "@triplit/cli": "latest",
-    "@types/eslint": "^8.56.7",
-    "eslint": "^9.0.0",
-    "eslint-plugin-svelte": "^2.36.0",
-    "globals": "^15.0.0",
-    "svelte": "^5.0.0-next.1",
-    "svelte-check": "^3.6.0",
-    "tslib": "^2.4.1",
-    "typescript": "^5.0.0",
-    "typescript-eslint": "^8.0.0-alpha.20",
-    "vite": "^5.0.3"
+    "@sveltejs/adapter-auto": "^3.2.4",
+    "@sveltejs/kit": "^2.5.24",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+    "@triplit/cli": "^0.5.7",
+    "@types/eslint": "^9.6.0",
+    "eslint": "^9.9.0",
+    "eslint-plugin-svelte": "^2.43.0",
+    "globals": "^15.9.0",
+    "svelte": "5.0.0-next.235",
+    "svelte-check": "^3.8.6",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.2.0",
+    "vite": "^5.4.2"
   },
   "type": "module",
   "dependencies": {
-    "@triplit/client": "latest",
-    "@triplit/svelte": "latest"
+    "@triplit/client": "^0.4.6",
+    "@triplit/svelte": "^0.1.63",
+    "svelte-clerk": "^0.1.4"
   }
 }
