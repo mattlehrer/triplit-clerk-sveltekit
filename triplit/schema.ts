@@ -63,6 +63,12 @@ export const schema = {
 				read: {
 					filter: [['organization_id', '=', '$role.orgId']],
 				},
+				update: {
+					filter: [['organization_id', '=', '$role.orgId']],
+				},
+				postUpdate: {
+					filter: [['organization_id', '=', '$role.orgId']],
+				},
 			},
 			org_admin: {
 				insert: {
