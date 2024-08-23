@@ -4,15 +4,13 @@
 	import GettingStarted from './getting-started.svelte';
 	import ConnectionStatus from './connection-status.svelte';
 	import Todo from './todo.svelte';
-
-	let text = $state('');
-	const todos = useQuery(triplit, triplit.query('todos').order('created_at', 'DESC'));
-	let todosArray = $derived(todos.results ? Array.from(todos.results) : []);
+	import Nav from '$lib/components/Nav.svelte';
 </script>
 
 <div class="main-container">
 	<GettingStarted />
 	<div class="app-container">
+		<Nav />
 		<h1>Todos</h1>
 		<ConnectionStatus />
 		<form
