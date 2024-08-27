@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { setTriplitContext } from './context';
 	import { useClerkContext } from 'svelte-clerk';
-	import { offlineDb, onlineDb } from '$lib/client';
+	import { triplit } from '$lib/client';
 
 	const {
 		token,
@@ -17,14 +16,14 @@
 	// use token from SSR if available instead of waiting for it to load client side
 	let currentTriplitToken: string | undefined | null = token;
 	if (currentTriplitToken) {
-		onlineDb.updateToken(currentTriplitToken);
+		triplit.updateToken(currentTriplitToken);
 	}
 
 	async function updateToken(session: typeof clerk.session) {
 		const currentSessionToken = session?.lastActiveToken?.getRawString();
 		if (!session) {
 			currentTriplitToken = null;
-			onlineDb.disconnect();
+			triplit.disconnect();
 		} else if (currentTriplitToken !== currentSessionToken) {
 			const lastActiveTokenExp = session?.lastActiveToken?.jwt?.claims.exp;
 
@@ -39,9 +38,47 @@
 
 			if (currentTriplitToken) {
 				// console.log('updating token to', currentTriplitToken);
-				onlineDb.updateToken(currentTriplitToken);
+				if (!triplit.connectionStatus || triplit.connectionStatus === 'CLOSED') {
+					// if there's no token, ensure all projects created by anon user are associated with the new token's user
+					const allAnonTodosQuery = triplit
+						.query('todos')
+						.where([
+							['created_by_clerk_id', '=', 'anon'],
+							['organization_id', '=', null],
+						])
+						.syncStatus('pending')
+						.build();
+					const anonTodos = await triplit.fetch(allAnonTodosQuery, { policy: 'local-only' });
+					if (anonTodos.size) {
+						// updates won't work because the previous inserts will be rejected by remote server
+
+						// const updatePromises = Array.from(anonProjects).map((project) => {
+						// 	return triplit.update('projects', project[0], async (p) => {
+						// 		p.created_by_clerk_id = session.user.id;
+						// 	});
+						// });
+						// await Promise.all(updatePromises);
+
+						// insert acts as an upsert locally if the id already exists but an insert on the remote for permissions
+						const insertPromises = Array.from(anonTodos).map((todo) => {
+							console.log({ projectId: todo[0], project: todo[1] });
+
+							return triplit.insert('todos', {
+								...todo[1],
+								created_by_clerk_id: session.user.id,
+							});
+						});
+						const p = await Promise.all(insertPromises);
+						console.log({ p });
+					}
+				}
+				try {
+					triplit.updateToken(currentTriplitToken);
+				} catch (error) {
+					console.log({ error });
+				}
 			} else {
-				onlineDb.disconnect();
+				triplit.disconnect();
 			}
 		} else {
 			console.log('Token is the same');
@@ -51,15 +88,6 @@
 	// when session changes, update Triplit token
 	$effect(() => {
 		updateToken(clerk.session);
-	});
-
-	setTriplitContext({
-		get onlineDb() {
-			return onlineDb;
-		},
-		get offlineDb() {
-			return offlineDb;
-		},
 	});
 </script>
 

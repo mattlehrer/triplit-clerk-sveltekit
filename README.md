@@ -12,4 +12,4 @@ to your JWT claims on the Clerk dashboard on the Sessions settings page or on a 
 
 Before a user signs up or signs in, this is one way to allow a user to begin using the app offline. It is possible to create an anonymous user if they were online at some point, but this template does not do that. Here, data from the offline app database could be manually or automatically inserted into the online database after a user signs up, using their new user ID.
 
-Thanks very much to the [Triplit](https://triplit.dev) team for help thinking through some of the ideas here and to Clerk dev Robert Soriano for the [svelte-clerk](https://github.com/wobsoriano/svelte-clerk) package for the context ideas.
+Thanks very much to the [Triplit](https://triplit.dev) team for help thinking through some of the ideas here and to Clerk dev Robert Soriano for the [svelte-clerk](https://github.com/wobsoriano/svelte-clerk) package.

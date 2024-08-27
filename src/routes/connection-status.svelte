@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { useConnectionStatus } from '@triplit/svelte';
-	import { onlineDb } from '$lib/client';
+	import { triplit } from '$lib/client';
 
-	const connection = useConnectionStatus(onlineDb);
+	const connection = useConnectionStatus(triplit);
 </script>
 
 <div class="connection-status">
