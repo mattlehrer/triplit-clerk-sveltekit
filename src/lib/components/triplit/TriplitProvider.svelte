@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import { useClerkContext } from 'svelte-clerk';
 	import { triplit } from '$lib/client';
+	import { browser } from '$app/environment';
 
 	const {
 		token,
@@ -14,8 +15,9 @@
 	const clerk = useClerkContext();
 
 	// use token from SSR if available instead of waiting for it to load client side
+	// but only do this in the browser
 	let currentTriplitToken: string | undefined | null = token;
-	if (currentTriplitToken) {
+	if (currentTriplitToken && browser) {
 		triplit.updateToken(currentTriplitToken);
 	}
 
@@ -72,11 +74,8 @@
 						console.log({ p });
 					}
 				}
-				try {
-					triplit.updateToken(currentTriplitToken);
-				} catch (error) {
-					console.log({ error });
-				}
+
+				triplit.updateToken(currentTriplitToken);
 			} else {
 				triplit.disconnect();
 			}
