@@ -1,7 +1,5 @@
 <script lang="ts">
-
 	import { OrganizationSwitcher, SignedIn, SignedOut, UserButton } from 'svelte-clerk';
-
 </script>
 
 <header>
@@ -26,7 +24,6 @@
 		</div>
 	</nav>
 </header>
-
 
 <style>
 	header {
@@ -68,5 +65,4 @@
 	a:hover {
 		text-decoration: underline;
 	}
-
 </style>
